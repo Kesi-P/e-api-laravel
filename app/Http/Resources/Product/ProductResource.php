@@ -14,6 +14,7 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
+        //nice json show on firefox
         return [
             'name'=> $this->name,
             'description' => $this->detail,
@@ -24,7 +25,8 @@ class ProductResource extends JsonResource
             'rating' => $this->reviews->count() >0 ? round($this->reviews->sum('star')/
             $this->reviews->count()) : 'No rating',
             'href'=>[
-              'review' => route('reviews.index', $this->id)
+              'review' => route('reviews.index', ['product' => $this->id])
+              //'reviews.index', ['product' => $this->id]
             ]
         ];
     }
